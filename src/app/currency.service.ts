@@ -13,7 +13,7 @@ interface CurrencyData {
   providedIn: 'root'
 })
 export class CurrencyService {
-  private apiKey = 'fblV5i0zbgesIEgD87YSDTm86c8YCYVU';  // Api ключ
+  private apiKey = 'PF1CwE0qC0vUUW8RifcXH18ryO0LGJJv';  // Api ключ
   private apiUrl = 'https://api.apilayer.com/currency_data/live';
   private currencies = ['USD', 'EUR', 'GBP', 'CNY', 'JPY', 'TRY'];
 
