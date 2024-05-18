@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import { showDropdown, showItem, switchToggle } from './currency-list-animations';
 import {CurrencyService} from '../currency.service';
@@ -52,7 +51,7 @@ export class CurrencyListComponent implements OnInit {
     } else {
         this.useMockRates();
         this.updateTime();
-      };
+      }
   }
 
   //Мок данные
