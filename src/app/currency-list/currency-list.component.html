@@ -1,0 +1,50 @@
+<div class="app-container">
+  <div class="toggle-mockdata-switch">
+    <label class="switch">
+      <input type="checkbox" [(ngModel)]="useAPIData" (ngModelChange)="updateRates()">
+      <span class="slider" [ngClass]="{'api': useAPIData, 'mock': !useAPIData}">
+        <span class="slider-inner" [@switchToggle]="useAPIData ? 'api' : 'mock'"></span>
+        <span class="label">{{ useAPIData ? 'API Data' : 'Mock Data' }}</span>
+    </span>
+    </label>
+  </div>
+  <div class="currency-monitor">
+    <div class="header">
+      <div class="title-row">
+        <h1>Currency RUB</h1>
+        <div class="dropdown">
+          <button (click)="toggleDropdownVisibility()" id="addCurrencyBtn">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 1V15M1 8H15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div *ngIf="isDropdownVisible" id="currencyDropdown" class="dropdown-content" [@showDropdown]>
+            <input [(ngModel)]="searchText" type="text" id="searchInput" (ngModelChange)="filterAdditionalCurrencies()"
+                   placeholder="Search currency...">
+            <ul id="currencyList">
+              <li *ngFor="let currency of filteredAdditionalCurrencies" (click)="addCurrency(currency)"
+                  style="cursor: pointer;">
+                {{ currency }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <span class="timestamp">updated <span class="date">{{ dateOfUpdate }}</span>, <span class="time">{{ timeOfUpdate }}</span></span>
+    </div>
+    <div class="currency-list">
+      <div *ngFor="let currency of currencies" class="currency-item" [@showItem]>
+        <span class="currency-name">{{ currency }}</span>
+        <div class="currency-values">
+          <span class="currency-value">{{ rates['RUB' + currency] | number:'1.2-2' }}</span>
+          <span class="currency-change" [ngClass]="getRateChangeClass(currency)">
+          <ng-container *ngIf="getRateDifference(currency) > 0">▲</ng-container>
+          <ng-container *ngIf="getRateDifference(currency) < 0">▼</ng-container>
+          <ng-container *ngIf="getRateDifference(currency) === 0">●</ng-container>
+            {{ getRateDifference(currency) | number:'1.2-2' }}
+        </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

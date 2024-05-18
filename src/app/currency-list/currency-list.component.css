@@ -1,0 +1,216 @@
+:host {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.currency-monitor {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 300px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 16px;
+  justify-content: space-between;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+button#addCurrencyBtn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button#addCurrencyBtn:hover {
+  background-color: #0056b3;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #888;
+  margin-top: 5px;
+}
+
+.currency-list {
+  margin-top: 20px;
+}
+
+.currency-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.currency-item:last-child {
+  border-bottom: none;
+}
+
+.currency-name {
+  width: 40px;
+  font-weight: bold;
+}
+
+.currency-values {
+  display: flex;
+  width: 160px;
+  justify-content: space-between;
+  padding: 5px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.currency-value {
+  font-weight: bold;
+}
+
+.currency-change.negative {
+  color: red;
+}
+
+.currency-change.positive {
+  color: green;
+}
+
+.currency-change.neutral {
+  color: gray;
+}
+
+/*Всплывающее окно с доп валютами*/
+.dropdown-content {
+  position: absolute;
+  background-color: #fff;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  border-radius: 8px;
+  top: 40px;
+  right: 0;
+}
+
+.dropdown-content input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+
+.dropdown-content ul {
+  list-style-type: none;
+  padding: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.dropdown-content ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.dropdown-content ul li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-content ul li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Переключатель mock data <-> API data*/
+.toggle-mockdata-switch {
+  margin-bottom: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 180px;
+  height: 40px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.4s ease-in-out; /* Плавный переход цвета фона */
+}
+
+.slider-inner {
+  position: absolute;
+  height: 34px;
+  width: 34px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  /* Анимация перемещения убрана, так как она задается через Angular animations */
+}
+
+.slider.api {
+  background-color: #007bff; /* Голубоватый для API Data */
+}
+
+.slider.mock {
+  background-color: #d3d3d3; /* Сероватый для Mock Data */
+}
+
+.slider .label {
+  color: white;
+  font-size: 16px;
+  padding: 0 10px;
+  z-index: 1;
+}
+
