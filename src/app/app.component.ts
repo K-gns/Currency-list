@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { CurrencyListComponent } from './currency-list/currency-list.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [HttpClientModule, CurrencyListComponent],
+  template: '<app-currency-list></app-currency-list>',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'currency-exchange';
-}
+export class AppComponent {}
