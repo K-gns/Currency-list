@@ -60,14 +60,7 @@ export class CurrencyListComponent implements OnInit {
       return Math.random() * (max - min) + min;
     };
 
-    this.previousRates = {
-      RUBUSD: generateRandomNumber(89, 96),
-      RUBEUR: generateRandomNumber(117, 122),
-      RUBGBP: generateRandomNumber(112, 117),
-      RUBCNY: generateRandomNumber(12, 14),
-      RUBJPY: generateRandomNumber(0.50, 0.60),
-      RUBTRY: generateRandomNumber(2.70, 2.90)
-    };
+    this.previousRates = {...this.rates}
 
     this.rates = {
       RUBUSD: generateRandomNumber(89, 96),
@@ -77,6 +70,8 @@ export class CurrencyListComponent implements OnInit {
       RUBJPY: generateRandomNumber(0.50, 0.60),
       RUBTRY: generateRandomNumber(2.70, 2.90)
     };
+
+
   }
 
   //Обновление времени и даты
@@ -125,7 +120,7 @@ export class CurrencyListComponent implements OnInit {
   //Вычисляем цвет для изменения курса валюты
   //(выросла - зеленый, снизилась - красный, не изменилась - серый)
   getRateChangeClass(currency: string): string {
-    const differencePercent = this.getRateDifferencePercent(currency);
+    const differencePercent = this.getRateDifference(currency);
     if (differencePercent > 0) {
       return 'positive';
     } else if (differencePercent < 0) {
@@ -135,7 +130,7 @@ export class CurrencyListComponent implements OnInit {
     }
   }
 
-  //Получаем время обновления
+  //Получаем дату обновления в нужном формате
   getDateNow() {
     let currentDate = new Date();
     const formatNumber = (num: number) => num < 10 ? '0' + num : num.toString();
@@ -147,6 +142,7 @@ export class CurrencyListComponent implements OnInit {
     return `${currentDay}.${currentMonth}.${currentYear}`;
   };
 
+  //Получаем время обновления в нужном формате
   getTimeNow() {
     let currentDate = new Date();
     const formatNumber = (num: number) => num < 10 ? '0' + num : num.toString();
