@@ -17,22 +17,12 @@ export const showDropdown = trigger('showDropdown', [
   ])
 ]);
 
-export const showItem = trigger('showItem', [
-  state('hidden', style({
-    opacity: 0,
-    transform: 'translateX(-20px)'
-  })),
-  state('visible', style({
-    opacity: 1,
-    transform: 'translateX(0)'
-  })),
-  transition('hidden => visible', [
-    animate('0.3s ease-in')
-  ]),
-  transition('visible => hidden', [
-    animate('0.3s ease-out')
+export const showItem =   trigger('showItem', [
+  state('void', style({ opacity: 0 })),
+  transition(':enter', [
+    animate('0.5s ease-in', style({ opacity: 1 }))
   ])
-]);
+])
 
 export const switchToggle = trigger('switchToggle', [
   state('api', style({
