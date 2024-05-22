@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import { showDropdown, showItem, switchToggle } from './currency-list-animations';
-import {CurrencyService} from '../currency.service';
-
-
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import {
+  showDropdown,
+  showItem,
+  switchToggle,
+} from './currency-list-animations';
+import { CurrencyService } from '../currency.service';
 
 interface Rates {
   [key: string]: number;
@@ -16,7 +18,7 @@ interface Rates {
   imports: [CommonModule, FormsModule],
   templateUrl: './currency-list.component.html',
   styleUrls: ['./currency-list.component.css'],
-  animations: [showDropdown, showItem, switchToggle]
+  animations: [showDropdown, showItem, switchToggle],
 })
 export class CurrencyListComponent implements OnInit {
   rates: Rates = {};
@@ -29,29 +31,28 @@ export class CurrencyListComponent implements OnInit {
   searchText = '';
   useAPIData = false;
 
-  timeOfUpdate = ""
-  dateOfUpdate = ""
+  timeOfUpdate = '';
+  dateOfUpdate = '';
 
-  constructor(private currencyService: CurrencyService) {
-  }
+  constructor(private currencyService: CurrencyService) {}
 
   ngOnInit(): void {
-    this.updateRates()
+    this.updateRates();
     setInterval(() => this.updateRates(), 5000); //Запускаем обновление данных каждые 5с
   }
 
   //Обновить курсы валют (с помощью mock-данных или API)
   updateRates() {
     if (this.useAPIData) {
-      this.currencyService.getUpdatedRates(data => {
-        this.previousRates = {...this.rates};
+      this.currencyService.getUpdatedRates((data) => {
+        this.previousRates = { ...this.rates };
         this.rates = data.quotes;
         this.updateTime(); //Время не будет обновляться, если данные не были получены
       });
     } else {
-        this.useMockRates();
-        this.updateTime();
-      }
+      this.useMockRates();
+      this.updateTime();
+    }
   }
 
   //Мок данные
@@ -60,18 +61,16 @@ export class CurrencyListComponent implements OnInit {
       return Math.random() * (max - min) + min;
     };
 
-    this.previousRates = {...this.rates}
+    this.previousRates = { ...this.rates };
 
     this.rates = {
       RUBUSD: generateRandomNumber(89, 96),
       RUBEUR: generateRandomNumber(117, 122),
       RUBGBP: generateRandomNumber(112, 117),
       RUBCNY: generateRandomNumber(12, 14),
-      RUBJPY: generateRandomNumber(0.50, 0.60),
-      RUBTRY: generateRandomNumber(2.70, 2.90)
+      RUBJPY: generateRandomNumber(0.5, 0.6),
+      RUBTRY: generateRandomNumber(2.7, 2.9),
     };
-
-
   }
 
   //Обновление времени и даты
@@ -88,8 +87,9 @@ export class CurrencyListComponent implements OnInit {
 
   //Отфильтровать дополниетльные валюты
   filterAdditionalCurrencies() {
-    this.filteredAdditionalCurrencies = this.additionalCurrencies.filter(currency =>
-      currency.toLowerCase().includes(this.searchText.toLowerCase())
+    this.filteredAdditionalCurrencies = this.additionalCurrencies.filter(
+      (currency) =>
+        currency.toLowerCase().includes(this.searchText.toLowerCase()),
     );
   }
 
@@ -97,15 +97,18 @@ export class CurrencyListComponent implements OnInit {
   addCurrency(currency: string) {
     if (!this.currencies.includes(currency)) {
       this.currencies.push(currency);
-      this.additionalCurrencies = this.additionalCurrencies.filter(c => c !== currency);
+      this.additionalCurrencies = this.additionalCurrencies.filter(
+        (c) => c !== currency,
+      );
     }
-    this.toggleDropdownVisibility()
+    this.toggleDropdownVisibility();
     this.searchText = '';
   }
 
   //Считаем разницу между кэшированным прошлым значением и новым (в абсолютных единицах)
   getRateDifference(currency: string): number {
-    if (!this.previousRates[`RUB${currency}`] || !this.rates[`RUB${currency}`]) return 0;
+    if (!this.previousRates[`RUB${currency}`] || !this.rates[`RUB${currency}`])
+      return 0;
     return this.rates[`RUB${currency}`] - this.previousRates[`RUB${currency}`];
   }
 
@@ -133,24 +136,26 @@ export class CurrencyListComponent implements OnInit {
   //Получаем дату обновления в нужном формате
   getDateNow() {
     let currentDate = new Date();
-    const formatNumber = (num: number) => num < 10 ? '0' + num : num.toString();
+    const formatNumber = (num: number) =>
+      num < 10 ? '0' + num : num.toString();
 
     const currentDay = formatNumber(currentDate.getDate());
     const currentMonth = formatNumber(currentDate.getMonth() + 1);
     const currentYear = currentDate.getFullYear().toString();
 
     return `${currentDay}.${currentMonth}.${currentYear}`;
-  };
+  }
 
   //Получаем время обновления в нужном формате
   getTimeNow() {
     let currentDate = new Date();
-    const formatNumber = (num: number) => num < 10 ? '0' + num : num.toString();
+    const formatNumber = (num: number) =>
+      num < 10 ? '0' + num : num.toString();
 
     const hours = formatNumber(currentDate.getHours());
     const minutes = formatNumber(currentDate.getMinutes());
     const seconds = formatNumber(currentDate.getSeconds());
 
     return `${hours}:${minutes}:${seconds}`;
-  };
+  }
 }
